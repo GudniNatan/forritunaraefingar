@@ -1,35 +1,38 @@
-#Ekki full lausn
+from Queue import PriorityQueue
 amount = int(raw_input())
 requests = list()
 possible = True
 for i in range(amount):
     req = raw_input().split()
-    requests.append([int(req[0]), int(req[1])])
+    requests.append((int(req[0]), 1, int(req[1])))
 
 tshrits = raw_input().split()
-totalts = dict()
+totalts = list()
 for i in range(amount):
     size = int(tshrits[i])
-    if totalts.has_key(size):
-        totalts[size] += 1
-    else:
-        totalts[size] = 1
+    totalts.append((size, 2, 0))
 
-for i in range(amount):
-    maxt = -1
-    maxtnum = -1
-    for j in range(requests[i][0], requests[i][1] + 1):
-        if totalts.has_key(j) and totalts[j] > maxtnum and totalts[j] > 0:
-            maxt = j
-            maxtnum = totalts[j]
-    if maxt == -1 or maxtnum == -1:
-        possible = False
-        break
-    else:
-        totalts[maxt] -= 1
+tsandrequests = list()
+tsandrequests.extend(totalts)
+tsandrequests.extend(requests)
+tsandrequests.sort()
+queue = PriorityQueue()
+
+def coolDude():
+    for i in range(len(tsandrequests)):
+        if tsandrequests[i][1] == 1:
+            queue.put(tsandrequests[i][2])
+            continue
+        if not queue.empty():
+            bound = queue.get()
+            if bound < tsandrequests[i][0]:
+                return False
+        else:
+            return False
+    return True
 
 
-if not possible:
-    print "Neibb"
-else:
+if coolDude():
     print "Jebb"
+else:
+    print "Neibb"
