@@ -1,22 +1,8 @@
 import math
-#Ekki full lausn
+import itertools
 
 def dist((x1, y1), (x2, y2)):
     return math.sqrt(math.pow(x2 - x1, 2) + math.pow(y2 - y1, 2))
-
-def total_distance(points):
-    return sum([dist(point, points[index + 1]) for index, point in enumerate(points[:-1])])
-
-def travelling_salesman(points, start=(0, 0)):
-    must_visit = points
-    path = [start]
-    must_visit.remove(start)
-    while must_visit:
-        nearest = min(must_visit, key=lambda x: dist(path[-1], x))
-        path.append(nearest)
-        must_visit.remove(nearest)
-    path.append(start)
-    return path
 
 def main():
     packageNumber = int(raw_input())
@@ -41,6 +27,17 @@ def main():
     elif packageNumber == 1:
         print dist(packages[0], packages[1]) * 2
         return
-    print total_distance(travelling_salesman(packages))
+    packages.pop(0)
+    minDis = 1000000000
+    for route in itertools.permutations(packages):
+        route = list(route)
+        route.insert(0, (0, 0))
+        route.append((0, 0))
+        distance = 0
+        for i in range(len(route) - 1):
+            distance += dist(route[i], route[i+1])
+        minDis = min(minDis, distance)
+
+    print minDis
 
 main()

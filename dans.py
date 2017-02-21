@@ -23,6 +23,10 @@ def main():
         for j in range(fjoldi):
             dansarar[staedi[j] - 1].position = j
         dansarar.sort(key=lambda x: x.position)
+        """strengur = ""
+        for dansari in dansarar:
+            strengur += str(dansari) + " "
+        print strengur[0: -1]"""
     strengur = ""
     for dansari in dansarar:
         strengur += str(dansari) + " "
