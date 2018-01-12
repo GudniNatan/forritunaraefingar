@@ -18,6 +18,7 @@ for k, v in Counter(numbers).most_common(3):
 #print totalRepeats
 for n in range(len(numbers)):
     if numbers[n] == 0:
+        continue
         totalways += (totalRepeats - (1 - numberOfZeros % 2)) * 2
         """for k, v in Counter(numbers).most_common(3):
             if v == 0:

@@ -15,6 +15,8 @@ primes = primes2(10000000)
 
 while True:
     s = int(raw_input())
+    if s == 4:
+        break
     ogs = s
     counter = 0
     while True:

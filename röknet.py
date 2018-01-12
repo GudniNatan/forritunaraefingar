@@ -1,9 +1,10 @@
 n = int(raw_input())
 
 dictionary = dict()
+splitIt = str.split
 
 for i in range(n):
-    skipun = raw_input().split()
+    skipun = splitIt(raw_input())
     if skipun[0] == "INNTAK":
         dictionary[skipun[1]] = True if skipun[2] == "SATT" else False
     elif skipun[0] == "UTTAK":
