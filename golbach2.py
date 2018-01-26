@@ -64,6 +64,7 @@ print isLucasPseudoprime()
 
 import math
 n = int(input())
+a = 0
 
 def checkPrime(n):
   ceiling = math.ceil(n ** 0.5)
@@ -74,14 +75,11 @@ def checkPrime(n):
   else:
     return True
   
-a = 0
-
 for i in range(n - 4, 1, -1):
   if checkPrime(i):
+    n -= i
     a = i
     break
-
-n -= a
 
 def eratosthenes(n):
     multiples = set()
@@ -89,7 +87,7 @@ def eratosthenes(n):
     for i in range(2, n+1):
       if i not in multiples:
         primes.append(i)
-        for j in range(2*i, n+1, i):
+        for j in range(i*i, n+1, i):
           multiples.add(j)
     return primes
 
