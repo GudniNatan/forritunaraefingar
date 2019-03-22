@@ -1,5 +1,5 @@
 # lucas pseudoprimality test
-
+"""
 def gcd(a,b): # euclid's algorithm
     if b == 0: return a
     return gcd(b, a%b)
@@ -60,3 +60,40 @@ def isLucasPseudoprime(n):
     return u == 0
 
 print isLucasPseudoprime()
+"""
+
+import math
+n = int(input())
+a = 0
+
+def checkPrime(n):
+  ceiling = math.ceil(n ** 0.5)
+  if n == 2: return True
+  for i in range(2, ceiling + 1):
+    if n % i == 0:
+      return False
+  else:
+    return True
+  
+for i in range(n - 4, 1, -1):
+  if checkPrime(i):
+    n -= i
+    a = i
+    break
+
+def eratosthenes(n):
+    multiples = set()
+    primes = list()
+    for i in range(2, n+1):
+      if i not in multiples:
+        primes.append(i)
+        for j in range(i*i, n+1, i):
+          multiples.add(j)
+    return primes
+
+primes = eratosthenes(n - 2)
+
+for p in primes:
+  if n - p in primes:
+    print(a, p, n - p)
+    break
